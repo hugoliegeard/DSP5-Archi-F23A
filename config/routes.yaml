@@ -3,3 +3,23 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+home:
+    path: / # http://localhost:8000/
+    controller: App\Controller\DefaultController::home
+
+# Template Controller : Permet de générer une page sans avoir besoin de créer son ctrl.
+# cf. https://symfony.com/doc/current/templates.html#rendering-a-template-directly-from-a-route
+mentions-legales:
+    path: /mentions-legales # http://localhost:8000/mentions-legales
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: static/mentions-legales.html.twig
+
+# Redirect Controller : Permet de rediriger une url, vers une autre route.
+# cf. https://symfony.com/doc/current/routing.html#redirecting-to-urls-and-routes-directly-from-a-route
+home2:
+    path: /accueil.html # http://localhost:8000/accueil.html
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: home
