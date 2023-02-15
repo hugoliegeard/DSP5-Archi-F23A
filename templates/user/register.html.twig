@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <div class="p-3 mx-auto text-center">
+        <h1 class="display-4">Inscription</h1>
+    </div>
+
+    {# .container>.row>.col-7.mx-auto #}
+    <div class="container">
+        <div class="row">
+            <div class="col-7 mx-auto">
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

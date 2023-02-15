@@ -1,24 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Mon évènement
+    {{ event.title }}
 {% endblock %}
 
 {% block body %}
+
     <div class="p-3 mx-auto text-center">
-        <h1 class="display-4">Titre de mon évènement</h1>
+        <h1 class="display-4">
+            {{ event.title }}
+        </h1>
     </div>
 
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <div class="row">
                 <div class="col">
-                    <img src="https://via.placeholder.com/300x180" class="card-img-top" alt="...">
+                    <img height="250" style="width: 100%; object-fit: cover" src="{{ event.image }}" class="card-img-top" alt="{{ event.title }}">
                 </div>
                 <div class="col">
-                    <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-                    <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-                    <button class="btn btn-primary btn-lg" type="button">Example button</button>
+                    <h4>A lieu le {{ event.eventDate|date('d/m/Y')  }}</h4>
+                    <h5>Description : </h5>
+                    {{ event.description }}
                 </div>
             </div>
         </div>
