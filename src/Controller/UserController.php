@@ -39,13 +39,16 @@ class UserController extends AbstractController
                 )
             );
 
+            # Sauvegarde du user dans la BDD.
+            $em->persist($user);
+            $em->flush();
+
             # Notification à l'utilisateur
             $this->addFlash('success', "Félicitation, votre compte est actif. 
             Vous pouvez maintenant vous connecter.");
 
-            # Sauvegarde du user dans la BDD.
-            $em->persist($user);
-            $em->flush();
+            # Redirection sur la page de connexion
+            return $this->redirectToRoute('app_login');
         }
 
         # Passer le formulaire à la vue

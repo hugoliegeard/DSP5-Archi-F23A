@@ -1,14 +1,54 @@
-<header class="d-flex justify-content-center py-3">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a href="{{ path('home') }}" class="nav-link active" aria-current="page">
-                Accueil
-            </a>
-        </li>
-        <li class="nav-item"><a href="#" class="nav-link">Connexion</a></li>
-        <li class="nav-item"><a href="{{ path('user_register') }}" class="nav-link">Inscription</a></li>
-        <li class="nav-item"><a href="{{ path('admin_create_event') }}" class="nav-link">Créer un évènement</a></li>
-        {#<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>#}
-    </ul>
-</header>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('home') }}">Evently !</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_create_event', { 'alias':'politique' }) }}">Créer un
+                            évènement</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            Bonjour {{ app.user.email }}  &nbsp;&nbsp;|
+                        </span>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_users') }}">
+                                Gestion des utilisateurs
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">
+                            Déconnexion
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">
+                            Connexion
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_register') }}">
+                            Inscription
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

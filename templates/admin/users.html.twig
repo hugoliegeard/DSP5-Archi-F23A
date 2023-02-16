@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Gestion des Utilisateurs
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#users').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.2/i18n/fr-FR.json"
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="p-3 mx-auto text-center">
+        <h1 class="display-4">Gestion des Utilisateurs</h1>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table id="users">
+                        <thead>
+                        <td>Email</td>
+                        <td>Roles</td>
+                        <td>Actions</td>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.roles|join(', ') }}</td>
+                                <td>
+                                    <a href="#Modifier" class="btn btn-warning">Modifier</a>
+                                    <a href="#Supprimer" class="btn btn-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

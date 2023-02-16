@@ -8,9 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EventType extends AbstractType
 {
@@ -28,7 +28,7 @@ class EventType extends AbstractType
                 ]
             ])
             ->add('address', TextType::class)
-            ->add('image', UrlType::class)
+            ->add('imageFile', VichImageType::class)
             ->add('eventDate', DateTimeType::class)
             ->add('submit', SubmitType::class, [
                'label' => "Valider et mettre en ligne mon évènement"

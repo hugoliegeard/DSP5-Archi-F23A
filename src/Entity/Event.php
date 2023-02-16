@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[Uploadable]
 class Event
 {
     #[ORM\Id]
@@ -24,6 +28,9 @@ class Event
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    #[UploadableField(mapping: 'events', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $address = null;
@@ -137,10 +144,32 @@ class Event
         return $this;
     }
 
+    /**
+     * Cette fonction permet de vérifier si un participant
+     * est déjà inscrit à un évènement.
+     * @param User $attendee
+     * @return bool
+     */
+    public function hasAttendee(User $attendee): bool
+    {
+       return $this->attendees->contains($attendee);
+    }
+
     public function removeAttendee(User $attendee): self
     {
         $this->attendees->removeElement($attendee);
 
         return $this;
     }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
 }

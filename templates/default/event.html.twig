@@ -14,14 +14,58 @@
 
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
-            <div class="row">
-                <div class="col">
-                    <img height="250" style="width: 100%; object-fit: cover" src="{{ event.image }}" class="card-img-top" alt="{{ event.title }}">
-                </div>
-                <div class="col">
-                    <h4>A lieu le {{ event.eventDate|date('d/m/Y')  }}</h4>
-                    <h5>Description : </h5>
-                    {{ event.description }}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <img height="200" src="{{ asset('images/events/' ~ event.image) }}" class="float-end"
+                             alt="{{ event.title }}">
+                    </div>
+                    <div class="col">
+
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        <h4>
+                            A lieu le {{ event.eventDate|date('d/m/Y') }}
+                            <small>
+                                <em>(déjà {{ event.attendees.count }} participant.e.s)</em>
+                            </small>
+                        </h4>
+                        <h5>Description : </h5>
+                        {{ event.description }}
+                        <hr>
+                        <div class="d-grid gap-2 mt-4">
+                            {% if app.user and event.hasAttendee(app.user) %}
+                                <a class="btn btn-outline-dark" href="javascript:void(0)" role="button">
+                                    Vous participez déjà à cet évènement
+                                </a>
+                            {% else %}
+                                <a class="btn btn-dark" href="{{ path('event_join', {'id': event.id}) }}" role="button">
+                                    Je participe !
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="col-12 mt-4">
+                            <h5>Les participants : </h5>
+                            <ul class="m-0 p-0 mt-3">
+                                {% for attendee in event.attendees %}
+                                    <li class="ms-5">{{ attendee.email }}</li>
+                                {% else %}
+                                    <li class="list-unstyled">
+                                        <div class="alert alert-info">
+                                            Pas de participant pour le moment.
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
