@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Evently
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Evently</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+    <ion-card *ngFor="let event of events['hydra:member']">
+      <img alt="Silhouette of mountains" src="https://localhost:8000/images/events/{{ event.image }}" />
+      <ion-card-header>
+        <ion-card-title>{{ event.title }}</ion-card-title>
+        <ion-card-subtitle></ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ event.description }}
+      </ion-card-content>
+    </ion-card>
+
+</ion-content>

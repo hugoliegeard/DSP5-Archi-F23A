@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 #[Uploadable]
+#[ApiResource]
 class Event
 {
     #[ORM\Id]
@@ -84,7 +86,7 @@ class Event
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -170,6 +172,17 @@ class Event
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    /**
+     * Permet de vérifier si l'utilisateur passé en paramètre
+     * est bien le propriétaire de l'évènement.
+     * @param User $user
+     * @return bool
+     */
+    public function isOwner(User $user)
+    {
+        return $user === $this->getUser();
     }
 
 }

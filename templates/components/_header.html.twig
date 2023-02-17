@@ -10,10 +10,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('admin_create_event', { 'alias':'politique' }) }}">Créer un
-                            évènement</a>
+                        <a class="nav-link" href="{{ path('event_create') }}">
+                            Créer un évènement
+                        </a>
                     </li>
                 {% endif %}
             </ul>
@@ -31,6 +32,11 @@
                             </a>
                         </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_events') }}">
+                            Mes évènements
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">
                             Déconnexion

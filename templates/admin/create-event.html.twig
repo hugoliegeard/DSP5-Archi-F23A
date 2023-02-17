@@ -2,6 +2,15 @@
 
 {% block title %}Créer mon évènement{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .vich-image img {
+            max-width: 100%;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
 
     <div class="p-3 mx-auto text-center">

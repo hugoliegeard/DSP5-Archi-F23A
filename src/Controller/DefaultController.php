@@ -26,7 +26,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/evenement/{id}', name: 'default_event', methods: 'GET')]
+    #[Route('/evenement/{id<\d+>}', name: 'default_event', methods: 'GET')]
     public function event(Event $event = null)
     {
 

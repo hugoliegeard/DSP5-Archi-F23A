@@ -1,0 +1,7 @@
+{
+  "name": "evently-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +55,17 @@ class UserController extends AbstractController
         # Passer le formulaire à la vue
         return $this->render('user/register.html.twig', [
             'form' => $form
+        ]);
+    }
+
+    #[Route('/mes-evenements.html', name: 'user_events', methods: 'GET')]
+    public function myEvents(): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->render('user/events.html.twig', [
+            'events' => $user->getCreatedEvents()
         ]);
     }
 }
